@@ -1,0 +1,86 @@
+<!--
+ * @公司名: 北京雨花石云计算
+ * @Description: 
+ * @Author: MArio
+ * @Date: 2021-11-17 17:18:26
+ * @LastEditTime: 2021-12-15 12:56:51
+ * @LastEditors: MArio
+-->
+<template>
+  <div id="layout">
+    <TitleBlock />
+    <Aside />
+    <section class="home-section">
+      <transition name="slide-fade">
+        <Dailynewspaper v-show="view === 'No1On'" />
+      </transition>
+      <transition name="slide-fade">
+        <Hot v-show="view === 'No2On'" />
+      </transition>
+      <transition name="slide-fade">
+        <RankingList v-show="view === 'No3On'" />
+      </transition>
+      <transition name="slide-fade">
+        <Partition v-show="view === 'No4On'" />
+      </transition>
+      <transition name="slide-fade">
+        <Help v-show="view === 'No12On'" />
+      </transition>
+      <transition name="slide-fade">
+        <Setup v-show="view === 'No13On'" />
+      </transition>
+    </section>
+  </div>
+</template>
+
+<script>
+import TitleBlock from "../components/TitleBlock";
+import Aside from "../components/Aside.vue";
+import Dailynewspaper from "../components/Dailynewspaper.vue";
+import Setup from "../components/Setup.vue";
+import Help from "../components/Help.vue";
+import Hot from "../components/Hot.vue";
+import RankingList from "../components/RankingList.vue";
+import Partition from "../components/Partition.vue"
+export default {
+  name: "layout",
+  components: {
+    TitleBlock,
+    Aside,
+    Dailynewspaper,
+    Setup,
+    Help,
+    Hot,
+    RankingList,
+    Partition,
+  },
+  computed: {
+    view() {
+      return this.$store.getters.getView;
+    },
+    overallbackgroundColor() {
+      return this.$store.getters.getOverallbackgroundColor;
+    },
+  },
+};
+</script>
+
+<style scoped>
+.layoutPan {
+  padding-top: 55px;
+  width: 100%;
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+#layout {
+  width: 100%;
+  height: 100%;
+  /* min-width: 1334px;
+        min-height: 830px; */
+  border-block-color: #fff;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+}
+</style>

@@ -1,0 +1,9 @@
+{
+    "_apiBase":"https://api.bilibili.com",
+    "_appBase":"https://app.bilibili.com",
+    "_vcBase":"https://api.vc.bilibili.com",
+    "_liveBase":"https://api.live.bilibili.com",
+    "_passBase":"https://passport.bilibili.com",
+    "_bangumiBase":"https://bangumi.bilibili.com",
+    "_grpcBase":"https://grpc.biliapi.net"
+}
