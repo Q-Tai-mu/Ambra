@@ -369,7 +369,7 @@ export default {
   color: #fffdfd;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+
 }
 .dailyNewColumnCardRightTitle {
   color: #7e758e;
@@ -434,14 +434,15 @@ export default {
 }
 .dailyNewShuaXin {
   float: right;
-  width: 60px;
+  width: 70px;
   height: 30px;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
-  padding-top: 2px;
+  padding-top: 4px;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  padding-left: 7px;
 }
 .dailyNewShuaXin:hover {
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);

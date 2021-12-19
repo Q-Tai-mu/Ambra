@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-12-14 11:07:11
- * @LastEditTime: 2021-12-15 15:14:02
+ * @LastEditTime: 2021-12-18 12:02:19
  * @LastEditors: MArio
 -->
 <template>
@@ -663,7 +663,7 @@
         </tr>
       </table>
     </div>
-    <div class="dailyNewDropdownColumn Neworldscro">
+    <div class="dailyNewDropdownColumnRanki Neworldscro">
       <table>
         <tr v-for="item in dataCard" :key="item.id">
           <td v-for="item2 in item" :key="item2.id">
@@ -865,6 +865,12 @@ export default {
 </script>
 
 <style>
+.dailyNewDropdownColumnRanki {
+    width: 100%;
+    height: 87.5%;
+    display: flex;
+    justify-content: space-evenly;
+}
 .newWorldSortCardTitleRight {
   float: right;
 }

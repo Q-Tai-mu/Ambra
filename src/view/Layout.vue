@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-11-17 17:18:26
- * @LastEditTime: 2021-12-15 12:56:51
+ * @LastEditTime: 2021-12-18 11:57:22
  * @LastEditors: MArio
 -->
 <template>
@@ -24,11 +24,24 @@
         <Partition v-show="view === 'No4On'" />
       </transition>
       <transition name="slide-fade">
+        <Cosplay v-show="view === 'No5On'" />
+      </transition>
+      <transition name="slide-fade">
+        <Fanju v-show="view === 'No7On'" />
+      </transition>
+      <transition name="slide-fade">
+        <TVplay v-show="view === 'No10On'" />
+      </transition>
+      <transition name="slide-fade">
+        <Film v-show="view === 'No11On'" />
+      </transition>
+      <transition name="slide-fade">
         <Help v-show="view === 'No12On'" />
       </transition>
       <transition name="slide-fade">
         <Setup v-show="view === 'No13On'" />
       </transition>
+
     </section>
   </div>
 </template>
@@ -42,6 +55,10 @@ import Help from "../components/Help.vue";
 import Hot from "../components/Hot.vue";
 import RankingList from "../components/RankingList.vue";
 import Partition from "../components/Partition.vue"
+import Cosplay from "../components/Cosplay.vue"
+import TVplay from "../components/TVplay";
+import Film from "../components/Film";
+import Fanju from "../components/Fanju";
 export default {
   name: "layout",
   components: {
@@ -53,6 +70,10 @@ export default {
     Hot,
     RankingList,
     Partition,
+    Cosplay,
+    TVplay,
+    Film,
+    Fanju
   },
   computed: {
     view() {
