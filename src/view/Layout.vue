@@ -3,14 +3,14 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-11-17 17:18:26
- * @LastEditTime: 2021-12-18 11:57:22
+ * @LastEditTime: 2021-12-24 11:12:44
  * @LastEditors: MArio
 -->
 <template>
-  <div id="layout">
+  <div id="layout"  :style="overallbackgroundColor == 'shallow' ? '' : 'background-color: #202020;'">
     <TitleBlock />
     <Aside />
-    <section class="home-section">
+    <section class="home-section" >
       <transition name="slide-fade">
         <Dailynewspaper v-show="view === 'No1On'" />
       </transition>
@@ -27,6 +27,9 @@
         <Cosplay v-show="view === 'No5On'" />
       </transition>
       <transition name="slide-fade">
+        <UpHome v-show="view === 'No6On'" />
+      </transition>
+      <transition name="slide-fade">
         <Fanju v-show="view === 'No7On'" />
       </transition>
       <transition name="slide-fade">
@@ -41,7 +44,6 @@
       <transition name="slide-fade">
         <Setup v-show="view === 'No13On'" />
       </transition>
-
     </section>
   </div>
 </template>
@@ -54,11 +56,14 @@ import Setup from "../components/Setup.vue";
 import Help from "../components/Help.vue";
 import Hot from "../components/Hot.vue";
 import RankingList from "../components/RankingList.vue";
-import Partition from "../components/Partition.vue"
-import Cosplay from "../components/Cosplay.vue"
+import Partition from "../components/Partition.vue";
+import Cosplay from "../components/Cosplay.vue";
 import TVplay from "../components/TVplay";
 import Film from "../components/Film";
 import Fanju from "../components/Fanju";
+
+import UpHome from "../components/UpHome.vue";
+import { mapMutations } from "vuex";
 export default {
   name: "layout",
   components: {
@@ -73,16 +78,30 @@ export default {
     Cosplay,
     TVplay,
     Film,
-    Fanju
+    Fanju,
+    UpHome,
   },
   computed: {
-    view() {
-      return this.$store.getters.getView;
+    view: {
+      get() {
+        return this.$store.getters.getView;
+      },
+      set(val) {
+        this.SET_VIEW(val);
+      },
     },
-    overallbackgroundColor() {
-      return this.$store.getters.getOverallbackgroundColor;
+    overallbackgroundColor: {
+      get() {
+        return this.$store.getters.getOverallbackgroundColor;
+      },
+      set(val) {
+        this.SET_OVERALLBACKHROUNDCOLOR(val);
+      },
     },
   },
+  methods:{
+    ...mapMutations(["SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
+  }
 };
 </script>
 

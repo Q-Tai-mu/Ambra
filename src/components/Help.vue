@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-10-24 12:37:55
- * @LastEditTime: 2021-12-13 23:26:32
+ * @LastEditTime: 2021-12-24 11:47:08
  * @LastEditors: MArio
 -->
 <template>
@@ -140,10 +140,10 @@ export default {
 #help {
   border-radius: 3px;
   width: 85%;
-  height: 95.5%;
+  height: 100%;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
-  padding-left: 45px;
+  padding-left: 15px;
   padding-right: 25px;
   padding-top: 30px;
 }

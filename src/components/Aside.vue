@@ -3,13 +3,13 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-10-16 22:30:37
- * @LastEditTime: 2021-12-13 22:44:18
+ * @LastEditTime: 2021-12-24 11:12:13
  * @LastEditors: MArio
 -->
 <template>
   <div
     class="aside"
-    :style="overallbackgroundColor == 'shallow' ? '' : 'color:#ffffff;'"
+    :style="overallbackgroundColor == 'shallow' ? '' : 'color:#ffffff;background-color: #202020;'"
   >
     <div class="DaoHan">导航</div>
     <div class="DaoHanCard">

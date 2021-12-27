@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-12-14 11:07:11
- * @LastEditTime: 2021-12-18 12:02:19
+ * @LastEditTime: 2021-12-24 11:47:26
  * @LastEditors: MArio
 -->
 <template>
@@ -917,10 +917,10 @@ export default {
 #rankingList {
   border-radius: 3px;
   width: 85%;
-  height: 98%;
+  height: 100%;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
-  padding-left: 45px;
+  padding-left: 25px;
   padding-right: 25px;
   padding-top: 20px;
 }

@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-10-24 10:10:21
- * @LastEditTime: 2021-12-13 23:07:00
+ * @LastEditTime: 2021-12-24 11:48:37
  * @LastEditors: MArio
 -->
 <template>
@@ -834,10 +834,10 @@ export default {
 #setUp {
   border-radius: 3px;
   width: 85%;
-  height: 95.5%;
+  height: 100%;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
-  padding-left: 45px;
+  padding-left: 25px;
   padding-right: 25px;
   padding-top: 30px;
 }

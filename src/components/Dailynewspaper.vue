@@ -1,8 +1,15 @@
 <template>
-  <div id="dailyNewspaper">
+  <div
+    id="dailyNewspaper"
+    :style="
+      overallbackgroundColor == 'shallow'
+        ? 'background-color: #f9f9f9;border: 1px solid #e5e5e5;'
+        : 'background-color:#272727;border: 1px solid #1c1c1c;color:#fff;'
+    "
+  >
     <div class="dailyNewTitleCard">
       <div class="dailyNewZhuanLan">推荐</div>
-      <div class="dailyNewShuaXin" @click="doInit()">
+      <div class="dailyNewShuaXin" @click="doInit()" :style="overallbackgroundColor == 'shallow' ?'':' background-color:#343434;border: 1px solid #3b3b3b;'">
         <div class="dailyNewShuaXinIcon">
           <div class="ech-rotate360">
             <svg
@@ -38,19 +45,19 @@
     </div>
     <div
       ref="box"
-      class="dailyNewDropdownColumn Neworldscro"
+      :class="overallbackgroundColor == 'shallow' ?'dailyNewDropdownColumn Neworldscro':'dailyNewDropdownColumn NeworldscroHand'"
       @scroll="handleScroll($event)"
     >
       <table>
         <tr v-for="item in dataCard" :key="item.id">
           <td v-for="item2 in item" :key="item2.id">
-            <div class="dailyNewColumnCard">
-              <div class="dailyNewColumnCardLeft">
+            <div class="dailyNewColumnCard" :style="overallbackgroundColor == 'shallow' ? '':'background-color:#323232;border: 1px solid #232323;'">
+              <div class="dailyNewColumnCardLeft" :style="overallbackgroundColor == 'shallow' ?'':'background-color:#323232;border: 1px solid #232323;'" >
                 <img class="dailyNewColumnCardLeftImg" :src="item2.src" />
               </div>
               <div class="dailyNewColumnCardRight">
                 <div class="dailyDurationOn1">
-                  <span class="dailyNewColumnCardRightTitle">
+                  <span class="dailyNewColumnCardRightTitle" :style="overallbackgroundColor == 'shallow'?'':'color:#ffffff;' ">
                     {{ item2.title }}
                   </span>
                 </div>
@@ -156,6 +163,7 @@
 
 <script>
 import axios from "axios";
+import { mapMutations } from "vuex";
 export default {
   name: "dailyNewspaper",
   data() {
@@ -176,7 +184,18 @@ export default {
         console.log(err);
       });
   },
+  computed: {
+    overallbackgroundColor: {
+      get() {
+        return this.$store.getters.getOverallbackgroundColor;
+      },
+      set(val) {
+        this.SET_OVERALLBACKHROUNDCOLOR(val);
+      },
+    },
+  },
   methods: {
+    ...mapMutations(["SET_OVERALLBACKHROUNDCOLOR"]),
     doInit() {
       this.$Loading.start();
 
@@ -369,7 +388,6 @@ export default {
   color: #fffdfd;
   overflow: hidden;
   white-space: nowrap;
-
 }
 .dailyNewColumnCardRightTitle {
   color: #7e758e;
@@ -461,16 +479,16 @@ export default {
 #dailyNewspaper {
   border-radius: 3px;
   width: 85%;
-  height: 98%;
+  height: 100%;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
-  padding-left: 45px;
+  padding-left: 25px;
   padding-right: 25px;
   padding-top: 20px;
 }
 .Neworldscro {
   /* height: 430px; */
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .Neworldscro::-webkit-scrollbar {
   /*滚动条整体样式*/
@@ -491,5 +509,31 @@ export default {
   -webkit-box-shadow: inset 0 0 5px rgba(235, 238, 240, 0.2);
   border-radius: 10px;
   background: #f1f6fa;
+}
+
+
+.NeworldscroHand {
+  /* height: 430px; */
+  overflow-y: auto;
+}
+.NeworldscroHand::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 7px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+
+.NeworldscroHand::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(235, 238, 240, 0.2);
+  background: #9d9d9d;
+}
+
+.NeworldscroHand::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(235, 238, 240, 0.2);
+  border-radius: 10px;
+  background: #272727;
 }
 </style>
