@@ -9,7 +9,15 @@
   >
     <div class="dailyNewTitleCard">
       <div class="dailyNewZhuanLan">推荐</div>
-      <div class="dailyNewShuaXin" @click="doInit()" :style="overallbackgroundColor == 'shallow' ?'':' background-color:#343434;border: 1px solid #3b3b3b;'">
+      <div
+        class="dailyNewShuaXin"
+        @click="doInit()"
+        :style="
+          overallbackgroundColor == 'shallow'
+            ? ''
+            : ' background-color:#343434;border: 1px solid #3b3b3b;'
+        "
+      >
         <div class="dailyNewShuaXinIcon">
           <div class="ech-rotate360">
             <svg
@@ -45,19 +53,44 @@
     </div>
     <div
       ref="box"
-      :class="overallbackgroundColor == 'shallow' ?'dailyNewDropdownColumn Neworldscro':'dailyNewDropdownColumn NeworldscroHand'"
+      :class="
+        overallbackgroundColor == 'shallow'
+          ? 'dailyNewDropdownColumn Neworldscro'
+          : 'dailyNewDropdownColumn NeworldscroHand'
+      "
       @scroll="handleScroll($event)"
     >
       <table>
         <tr v-for="item in dataCard" :key="item.id">
           <td v-for="item2 in item" :key="item2.id">
-            <div class="dailyNewColumnCard" :style="overallbackgroundColor == 'shallow' ? '':'background-color:#323232;border: 1px solid #232323;'">
-              <div class="dailyNewColumnCardLeft" :style="overallbackgroundColor == 'shallow' ?'':'background-color:#323232;border: 1px solid #232323;'" >
+            <div
+              class="dailyNewColumnCard"
+              :style="
+                overallbackgroundColor == 'shallow'
+                  ? ''
+                  : 'background-color:#323232;border: 1px solid #232323;'
+              "
+            >
+              <div
+                class="dailyNewColumnCardLeft"
+                :style="
+                  overallbackgroundColor == 'shallow'
+                    ? ''
+                    : 'background-color:#323232;border: 1px solid #232323;'
+                "
+              >
                 <img class="dailyNewColumnCardLeftImg" :src="item2.src" />
               </div>
               <div class="dailyNewColumnCardRight">
                 <div class="dailyDurationOn1">
-                  <span class="dailyNewColumnCardRightTitle" :style="overallbackgroundColor == 'shallow'?'':'color:#ffffff;' ">
+                  <span
+                    class="dailyNewColumnCardRightTitle"
+                    :style="
+                      overallbackgroundColor == 'shallow'
+                        ? ''
+                        : 'color:#ffffff;'
+                    "
+                  >
                     {{ item2.title }}
                   </span>
                 </div>
@@ -68,7 +101,7 @@
                   {{ item2.cover_right_content_description }}
                 </div>
                 <div v-else></div>
-                <div class="dailyUp">
+                <div class="dailyUp" @click="onUpHomePage(item2.uid)">
                   {{ item2.up_name
                   }}<svg
                     t="1639373083928"
@@ -185,6 +218,14 @@ export default {
       });
   },
   computed: {
+    view: {
+      get() {
+        return this.$store.getters.getView;
+      },
+      set(val) {
+        this.SET_VIEW(val);
+      },
+    },
     overallbackgroundColor: {
       get() {
         return this.$store.getters.getOverallbackgroundColor;
@@ -193,9 +234,17 @@ export default {
         this.SET_OVERALLBACKHROUNDCOLOR(val);
       },
     },
+    uPid: {
+      get() {
+        return this.$store.getters.getUPid;
+      },
+      set(val) {
+        this.SET_UPID(val);
+      },
+    },
   },
   methods: {
-    ...mapMutations(["SET_OVERALLBACKHROUNDCOLOR"]),
+    ...mapMutations(["SET_UPID","SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
     doInit() {
       this.$Loading.start();
 
@@ -212,6 +261,7 @@ export default {
             var pro = {
               src: items[i]["cover"],
               title: items[i]["title"],
+              uid: items[i]["args"]["up_id"],
               cover_right_content_description:
                 items[i]["cover_right_content_description"],
               cover_left_2_content_description:
@@ -347,6 +397,10 @@ export default {
           });
       }
     },
+    onUpHomePage(uid) {
+      this.view = "No6On"; //开启up页面
+      this.uPid = uid;//赋予uid
+    },
   },
 };
 </script>
@@ -354,6 +408,7 @@ export default {
 <style>
 .dailyUp {
   color: #bcbabe;
+  cursor: pointer;
 }
 .dailyFooterRight {
   float: right;
@@ -510,7 +565,6 @@ export default {
   border-radius: 10px;
   background: #f1f6fa;
 }
-
 
 .NeworldscroHand {
   /* height: 430px; */
