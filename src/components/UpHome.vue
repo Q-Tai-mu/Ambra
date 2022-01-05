@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-12-21 18:00:15
- * @LastEditTime: 2022-01-04 18:00:05
+ * @LastEditTime: 2022-01-05 14:48:52
  * @LastEditors: MArio
 -->
 <template>
@@ -411,12 +411,25 @@
           </div>
           <div class="yp-aid-Template">
             <div class="yp-aid-tile-card NeworldEcro">
-              <span class="yp-span"    v-if="item.card.state == 'on'">{{ item.card.dynamic }}</span>
+              <span class="yp-span" v-if="item.card.state == 'on'">{{
+                item.card.dynamic
+              }}</span>
             </div>
             <div class="yp-img">
-              <img class="yp-img-in"    v-if="item.card.state == 'on'" :src="item.card.pic" />
+              <img
+                class="yp-img-in"
+                v-if="item.card.state == 'on'"
+                :src="item.card.pic"
+              />
             </div>
-            <div class="yp-details"></div>
+            <div class="yp-details">
+              <div class="yp-title-details-div NeworldEcro">
+                <span class="yp-details-title">{{ item.card.title }}</span>
+              </div>
+              <div class="yp-title-details-div NeworldEcro">
+                <span class="yp-details-text">{{ item.card.desc }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -435,7 +448,9 @@
         </div>
       </div>
     </div>
-    <div class="upHomeNode" v-if="tabTable === 'TabS3'"></div>
+    <div class="upHomeNode" v-if="tabTable === 'TabS3'">
+      <div class="upHomeDynamicHomeMore"></div>
+    </div>
   </div>
 </template>
 
@@ -939,11 +954,9 @@ export default {
                 } else {
                   if (project["origin"]) {
                     //D情况
-                    var doubleAnalysis = JSON.parse(
-                      project["origin"].replace(/[\\]/g, "")
-                    );
-                       console.log( "d");
-                    console.log( doubleAnalysis);
+                    var doubleAnalysis = JSON.parse(project["origin"]);
+                    console.log("d");
+                    console.log(doubleAnalysis);
                     // project["state"] = "onDub";
                     // doubleAnalysis["ctime"] =
                     //   new Date(doubleAnalysis["ctime"] * 1000).getUTCMonth() +
@@ -967,7 +980,7 @@ export default {
             Date: new Date(),
             uid: this.uid,
             describe: "通道dynamic请求异常",
-            einfo:avb
+            einfo: avb,
           };
           let str = JSON.stringify(info, "", "\t");
           fs.writeFile("./info.json", str, { flag: "a+" }, (err) => {
@@ -986,9 +999,30 @@ export default {
 </script>
 
 <style>
+.upHomeDynamicHomeMore {
+  width: 100%;
+  height: 100%;
+  background-color: #fdfdfd;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+.yp-title-details-div {
+  height: 26px;
+  width: 100%;
+  padding-left: 5px;
+}
+.yp-details-text {
+  color: #777;
+  font-size: 10px;
+}
+.yp-details-title {
+  color: #777;
+  font-size: 12.5px;
+}
 .yp-details {
   width: 300px;
   height: 70px;
+  float: left;
 }
 .yp-img-in {
   width: 100%;
