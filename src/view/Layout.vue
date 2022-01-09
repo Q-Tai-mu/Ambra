@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-11-17 17:18:26
- * @LastEditTime: 2021-12-24 11:12:44
+ * @LastEditTime: 2022-01-06 11:23:20
  * @LastEditors: MArio
 -->
 <template>
@@ -27,7 +27,7 @@
         <Cosplay v-show="view === 'No5On'" />
       </transition>
       <transition name="slide-fade">
-        <UpHome v-show="view === 'No6On'" />
+        <UpHome v-show="view === 'No14On'" />
       </transition>
       <transition name="slide-fade">
         <Fanju v-show="view === 'No7On'" />

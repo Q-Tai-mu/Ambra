@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-10-11 17:40:56
- * @LastEditTime: 2021-12-10 11:21:48
+ * @LastEditTime: 2022-01-09 11:22:56
  * @LastEditors: MArio
  */
 module.exports = {
@@ -11,8 +11,8 @@ module.exports = {
         electronBuilder: {
             nodeIntegration: true,
             builderOptions: {
-                productName:"腾春阁",
-                copyright:"Copyright @ 2021 Mario-er",
+                productName:"哔哩-工程版",
+                copyright:"Copyright @ 2022 Mario-er",
                 // options placed here will be merged with default configuration and passed to electron-builder
                 win: {
                     icon: 'build/icons/icon.ico'

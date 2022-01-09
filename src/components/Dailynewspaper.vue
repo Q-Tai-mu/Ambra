@@ -244,7 +244,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_UPID","SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
+    ...mapMutations(["SET_UPID", "SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
     doInit() {
       this.$Loading.start();
 
@@ -398,8 +398,8 @@ export default {
       }
     },
     onUpHomePage(uid) {
-      this.view = "No6On"; //开启up页面
-      this.uPid = uid;//赋予uid
+      this.view = "No14On"; //开启up页面
+      this.uPid = uid; //赋予uid
     },
   },
 };
@@ -496,6 +496,7 @@ export default {
   height: 91.5%;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 .dailyNewShuaXinText {
   float: left;

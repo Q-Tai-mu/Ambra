@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-11-28 20:43:07
- * @LastEditTime: 2021-12-31 22:52:25
+ * @LastEditTime: 2022-01-07 22:41:16
  * @LastEditors: MArio
  */
 
@@ -19,7 +19,8 @@ export default new Vuex.Store({
         hurl: '',
         overallbackgroundColor: 'shallow',
         uPid: '',
-        tabTable:'TabS1'
+        tabTable:'TabS1',
+        modalTui:false,
     },
     getters: {
         getView: state => {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
         },
         getTabTable: state => {
             return state.tabTable;
+        },
+        getModalTui: state => {
+            return state.modalTui;
         }
     },
     mutations: {
@@ -59,6 +63,9 @@ export default new Vuex.Store({
         },
         SET_TABTABLE:(state,payload) => {
             state.tabTable = payload;
+        },
+        SET_MODALTUI:(state,payload) => {
+            state.modalTui = payload;
         }
     }
 });

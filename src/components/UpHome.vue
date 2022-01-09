@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-12-21 18:00:15
- * @LastEditTime: 2022-01-05 14:48:52
+ * @LastEditTime: 2022-01-06 12:44:04
  * @LastEditors: MArio
 -->
 <template>
@@ -380,7 +380,7 @@
           v-for="item in dynamicData"
           :key="item.id"
         >
-          <div class="ypHomeModelDynamicTitle">
+          <div class="ypHomeModelDynamicTitle" v-if="item.card.state == 'on'">
             <div class="yp-home-title-Left-card">
               <img class="yp-home-title-Left-card-Img" :src="upImg" />
             </div>
@@ -409,7 +409,7 @@
               </div>
             </div>
           </div>
-          <div class="yp-aid-Template">
+          <div class="yp-aid-Template" v-if="item.card.state == 'on'">
             <div class="yp-aid-tile-card NeworldEcro">
               <span class="yp-span" v-if="item.card.state == 'on'">{{
                 item.card.dynamic
@@ -478,7 +478,7 @@ export default {
         describe: "生きていたんだよな Coverあいみょん",
       },
       authentication: " bilibili个人认证：bilibili 知名音乐UP主、直播高能主播",
-      uid: "435931665", //435931665,353116,393402835
+      uid: "393402835", //435931665,353116,393402835
       birthday: "03-01",
       Notice:
         "   粉丝群 （一）428667864（已满） （二）943197074每周五开直播，禁止上传录播录像。",
@@ -908,12 +908,14 @@ export default {
         )
         .then((resp) => {
           var all = resp.data["data"]["cards"];
+          var allPs = new Array();
           //  console.log(resp.data["data"]["cards"]);
           for (var i = 0; i < all.length; i++) {
             // 除去多余反斜杠，转换为对象 ,这里出现一个问题，card，这个可能会是对象而不是字符串.....,
 
             var project = JSON.parse(all[i]["card"]);
             //.replace(/[\\]/g, "")
+            
             console.log(project);
             //动态大体存在两种情况，一种是带aid（视频）动态，一种是纯动态
             // 通过设置自定义的属性字段，判断vue该以那种模板渲染动态
@@ -928,50 +930,52 @@ export default {
                 new Date(project["ctime"] * 1000).getDate();
               console.log("A");
             } else {
-              //B情况
-              //这里取不到aid，有一种情况，请查看format.1641047901905.json文件，携带aid请查看format.1641047916936.json
+              // //B情况
+              // //这里取不到aid，有一种情况，请查看format.1641047901905.json文件，携带aid请查看format.1641047916936.json
               project["state"] = "off";
-              //这了还有一种特殊情况，UP主的动态是纯文本动态，这里标准的item-upload_time是取不到时间的
-              //特殊处理下
-              if (project["item"]["upload_time"]) {
-                project["item"]["timeStart"] =
-                  new Date(
-                    project["item"]["upload_time"] * 1000
-                  ).getUTCMonth() +
-                  "-" +
-                  new Date(project["item"]["upload_time"] * 1000).getDate();
-                console.log("B");
-              } else {
-                //这里还需要判断下 C情况
-                if (project["item"]["timeStart"]) {
-                  project["item"]["timeStart"] =
-                    new Date(
-                      project["item"]["timestamp"] * 1000
-                    ).getUTCMonth() +
-                    "-" +
-                    new Date(project["item"]["timestamp"] * 1000).getDate();
-                  console.log("C");
-                } else {
-                  if (project["origin"]) {
-                    //D情况
-                    var doubleAnalysis = JSON.parse(project["origin"]);
-                    console.log("d");
-                    console.log(doubleAnalysis);
-                    // project["state"] = "onDub";
-                    // doubleAnalysis["ctime"] =
-                    //   new Date(doubleAnalysis["ctime"] * 1000).getUTCMonth() +
-                    //   "-" +
-                    //   new Date(doubleAnalysis["ctime"] * 1000).getDate();
-                    // project["origin"] = doubleAnalysis;
-                  }
-                }
-              }
+              // //这了还有一种特殊情况，UP主的动态是纯文本动态，这里标准的item-upload_time是取不到时间的
+              // //特殊处理下
+              // if (project["item"]["upload_time"]) {
+              //   project["item"]["timeStart"] =
+              //     new Date(
+              //       project["item"]["upload_time"] * 1000
+              //     ).getUTCMonth() +
+              //     "-" +
+              //     new Date(project["item"]["upload_time"] * 1000).getDate();
+              //   console.log("B");
+              // } else {
+              //   //这里还需要判断下 C情况
+              //   if (project["item"]["timeStart"]) {
+              //     project["item"]["timeStart"] =
+              //       new Date(
+              //         project["item"]["timestamp"] * 1000
+              //       ).getUTCMonth() +
+              //       "-" +
+              //       new Date(project["item"]["timestamp"] * 1000).getDate();
+              //     console.log("C");
+              //   } else {
+              //     if (project["origin"]) {
+              //       //D情况
+              //       var doubleAnalysis = JSON.parse(project["origin"]);
+              //       console.log("d");
+              //       console.log(doubleAnalysis);
+              //       // project["state"] = "onDub";
+              //       // doubleAnalysis["ctime"] =
+              //       //   new Date(doubleAnalysis["ctime"] * 1000).getUTCMonth() +
+              //       //   "-" +
+              //       //   new Date(doubleAnalysis["ctime"] * 1000).getDate();
+              //       // project["origin"] = doubleAnalysis;
+              //     }
+              //   }
+              // }
             }
-
-            all[i]["card"] = project;
+            if (project["state"] == "on") {
+              all[i]["card"] = project;
+              allPs.push(all[i]);
+            }
           }
 
-          this.dynamicData = all;
+          this.dynamicData = allPs;
         })
         .catch((err) => {
           var avb = err;

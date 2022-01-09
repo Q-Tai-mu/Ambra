@@ -3,13 +3,17 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-10-16 22:30:37
- * @LastEditTime: 2021-12-24 11:12:13
+ * @LastEditTime: 2022-01-08 11:16:14
  * @LastEditors: MArio
 -->
 <template>
   <div
     class="aside"
-    :style="overallbackgroundColor == 'shallow' ? '' : 'color:#ffffff;background-color: #202020;'"
+    :style="
+      overallbackgroundColor == 'shallow'
+        ? ''
+        : 'color:#ffffff;background-color: #202020;'
+    "
   >
     <div class="DaoHan">导航</div>
     <div class="DaoHanCard">
@@ -471,7 +475,13 @@
         <div class="DaoHanCardText">动态</div>
       </div>
     </div>
-    <div :class="overallbackgroundColor == 'shallow' ?'DaoHanCardSplitline':'DaoHanCardSplitlineToDeep'"></div>
+    <div
+      :class="
+        overallbackgroundColor == 'shallow'
+          ? 'DaoHanCardSplitline'
+          : 'DaoHanCardSplitlineToDeep'
+      "
+    ></div>
     <div class="ZhuanTi">专题</div>
     <div class="DaoHanCard">
       <div
@@ -853,7 +863,7 @@
         <div class="DaoHanCardText">电影</div>
       </div>
     </div>
-    <div class="DaoHanCard" style="margin-top:68%;">
+    <div class="DaoHanCard" style="margin-top: 78%">
       <div
         @click="changeView('No12On')"
         :class="
@@ -945,16 +955,98 @@
         <div class="DaoHanCardText">设置</div>
       </div>
     </div>
+
+    <!-- <div class="DaoHanCard">
+      <div
+        @click="changeView('No14On')"
+        :class="
+          overallbackgroundColor == 'shallow'
+            ? 'DaoHanCardInfo'
+            : 'DaoHanCardInfoToDeep'
+        "
+        :style="
+          view == 'No14On'
+            ? overallbackgroundColor == 'shallow'
+              ? 'background-color:#eaeaea;'
+              : 'background-color:#2d2d2d;'
+            : ''
+        "
+      >
+        <div v-if="view === 'No14On'" class="DaoHanCardLeftPross"></div>
+        <div v-else class="DaoHanCardLeftProssNo"></div>
+        <div class="DaoHanCardIcon">
+  
+          <div v-if="userIst == 'off'">
+            <svg
+              t="1641438718870"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="2139"
+              width="18"
+              height="18"
+            >
+              <path
+                d="M511.333 63.333c-247.424 0-448 200.576-448 448s200.576 448 448 448 448-200.576 448-448-200.576-448-448-448z m0 832c-51.868 0-102.15-10.144-149.451-30.15-36.011-15.231-69.123-35.67-98.812-60.897 12.177-31.985 42.226-63.875 84.223-88.903C396.189 686.243 456.222 669.53 512 669.53c55.631 0 115.416 16.658 164.026 45.703 41.762 24.953 71.689 56.812 83.863 88.804-29.764 25.342-62.976 45.865-99.106 61.146-47.299 20.006-97.582 30.15-149.45 30.15z m296.268-139.658c-20.493-35.937-54.353-68.855-98.747-95.381C649.75 624.979 579.839 605.53 512 605.53c-67.964 0-138.094 19.488-197.471 54.875-44.644 26.606-78.656 59.594-99.195 95.586-23.835-28.755-43.234-60.652-57.85-95.208-20.006-47.3-30.15-97.583-30.15-149.451s10.144-102.15 30.15-149.451c19.337-45.719 47.034-86.792 82.321-122.078 35.286-35.287 76.359-62.983 122.078-82.321 47.3-20.006 97.583-30.15 149.451-30.15 51.868 0 102.15 10.144 149.451 30.15 45.719 19.337 86.792 47.034 122.078 82.321 35.287 35.286 62.983 76.359 82.321 122.078 20.006 47.3 30.15 97.583 30.15 149.451s-10.144 102.15-30.15 149.451c-14.563 34.429-33.869 66.22-57.583 94.892z"
+                fill=""
+                p-id="2140"
+              ></path>
+              <path
+                d="M512 220.223c-88.224 0-160 71.776-160 160s71.776 160 160 160c88.225 0 160-71.775 160-160s-71.775-160-160-160z m0 256c-52.935 0-96-43.065-96-96s43.065-96 96-96 96 43.065 96 96-43.065 96-96 96z"
+                fill=""
+                p-id="2141"
+              ></path>
+            </svg>
+          </div>
+          <div class="aside-user-div" v-if="userIst == 'on'">
+            <img
+              class="aside-user"
+              :src="userImg"
+            />
+          </div>
+        </div>
+
+        <div class="DaoHanCardText">{{ userName }}</div>
+      </div>
+    </div> -->
+    <at-modal v-model="modalTui" :styles="{ top: '25%', width: '330px' }">
+      <div slot="header" style="text-align: center">
+        <span>二维码扫描登录</span>
+      </div>
+      <div style="text-align: center">
+        <img id="imgSrc" src="" />
+      </div>
+      <div slot="footer">
+        <at-button style="width: 100%" type="error" @click="closeModal2"
+          >关闭</at-button
+        >
+      </div>
+    </at-modal>
+    <!-- <at-modal v-model="modal3">
+      <p>这里是模态框的文本内容!</p>
+    </at-modal> -->
   </div>
 </template>
 
 <script>
+// import axios from "axios";
 import { mapMutations } from "vuex";
+// import qs from "qs";
+// var QRCode = require("qrcode");
 export default {
   name: "Aside",
   data() {
     return {
+      userName: "未登录",
+      userIst: "off",
+      userImg: "",
+      modal2: true,
+      modal3: false,
+      uid: "",
       textPross: "No9On",
+      oauthKey: "",
+      interval: "",
     };
   },
   computed: {
@@ -974,14 +1066,27 @@ export default {
         this.SET_OVERALLBACKHROUNDCOLOR(val);
       },
     },
+    modalTui: {
+      get() {
+        return this.$store.getters.getModalTui;
+      },
+      set(val) {
+        this.SET_MODALTUI(val);
+      },
+    },
   },
+
   methods: {
-    ...mapMutations(["SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
+    ...mapMutations(["SET_MODALTUI","SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
     setclick(val) {
       this.frm = val;
     },
     changeView(e) {
       this.view = e;
+    },
+    closeModal2() {
+      this.modalTui = false;
+      // clearInterval(this.interval);
     },
   },
 };
@@ -991,6 +1096,16 @@ export default {
 @import "../assets/scss/style.css";
 /* @import "./assets/scss/boxicons.min.css"; */
 @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+.aside-user-div {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+}
+.aside-user {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
 .DaoHanCardSplitlineToDeep {
   width: 100%;
   height: 2px;
