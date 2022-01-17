@@ -21,6 +21,8 @@ export default new Vuex.Store({
         uPid: '',
         tabTable:'TabS1',
         modalTui:false,
+        play:'noPlay'
+
     },
     getters: {
         getView: state => {
@@ -43,6 +45,9 @@ export default new Vuex.Store({
         },
         getModalTui: state => {
             return state.modalTui;
+        },
+        getPlay: state => {
+            return state.play;
         }
     },
     mutations: {
@@ -66,6 +71,9 @@ export default new Vuex.Store({
         },
         SET_MODALTUI:(state,payload) => {
             state.modalTui = payload;
+        },
+        SET_PLAY:(state,payload) => {
+            state.play = payload;
         }
     }
 });

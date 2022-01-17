@@ -8,7 +8,7 @@
  */
 'use strict'
 
-import { app, protocol, BrowserWindow,ipcMain } from 'electron'
+import { app, protocol, BrowserWindow,ipcMain,session } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -19,6 +19,17 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 async function createWindow() {
+  //设置下请求头
+  const filter = {
+    urls: ["*://*/*"]
+  }
+  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback)=> {
+    details.requestHeaders['origin'] = "https://www.bilibili.com"
+    details.requestHeaders['referer'] = "https://www.bilibili.com"
+    details.requestHeaders['user-Agent'] = "Mozilla/5.0 BiliDroid/6.56.0 (bbcallen@gmail.com)"
+    callback({ requestHeaders: details.requestHeaders });
+  })
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1334,

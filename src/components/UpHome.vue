@@ -3,7 +3,7 @@
  * @Description: 
  * @Author: MArio
  * @Date: 2021-12-21 18:00:15
- * @LastEditTime: 2022-01-06 12:44:04
+ * @LastEditTime: 2022-01-09 16:35:58
  * @LastEditors: MArio
 -->
 <template>
@@ -18,7 +18,7 @@
           <img class="upHomeHeadPortraitImg" :src="upImg" />
         </div>
         <div class="upHomeHeadPortraitTitle">{{ upName }}</div>
-        <div class="upHomeHeadFollow"></div>
+        <div class="upHomeHeadFollow">关注</div>
       </div>
     </div>
     <div class="upHomeTab">
@@ -915,7 +915,7 @@ export default {
 
             var project = JSON.parse(all[i]["card"]);
             //.replace(/[\\]/g, "")
-            
+
             console.log(project);
             //动态大体存在两种情况，一种是带aid（视频）动态，一种是纯动态
             // 通过设置自定义的属性字段，判断vue该以那种模板渲染动态
@@ -1497,7 +1497,27 @@ export default {
   border-bottom-right-radius: 6px;
 }
 .upHomeHeadFollow {
+  margin-right: 15px;
   float: right;
+  width: 70px;
+  height: 35px;
+  border-radius: 6px;
+  text-align: center;
+  background-color: #4c535e;
+  /* box-shadow: 0 16px 32px 0 rgb(48 55 66 / 15%); */
+  margin-top: 35px;
+  color: #fff;
+  font-size: 15px;
+  padding-top: 6px;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-app-region: no-drag;
+}
+.upHomeHeadFollow:hover {
+  /* background-color: #eaeaea; */
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+  border-color: rgb(180, 26, 26);
+  transition: all 0.2s ease-in-out;
 }
 .upHomeHeadPortraitTitle {
   float: left;
