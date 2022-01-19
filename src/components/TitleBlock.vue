@@ -77,11 +77,15 @@
             </div>
             <input
                     class="inpputSer"
+                    @blur="loseFocus()"
+                    @focus="getFocus()"
                     placeholder="视频 番剧 UP主..."
                     @keyup.enter="search"
                     v-model="searchValue"
+
             />
-            <div class="fanJuChainsearch">
+
+            <div class="fanJuChainsearch"  v-if="searchForState == 'on'">
                 <div class="fanJu-search-history-header">
                     <div class="search-the-left">
                         <span class="search-the-bold">搜索历史</span>
@@ -94,24 +98,18 @@
                 </div>
                 <div class="search-the-body">
                     <div class="search-the-body-eh">
-                        <div class="search-the-body-block">建国</div>
-                        <div class="search-the-body-block">美国队长</div>
-                        <div class="search-the-body-block">涩涩</div>
-                        <div class="search-the-body-block">朝鲜</div>
-                        <div class="search-the-body-block">分区</div>
-                        <div class="search-the-body-block">没有可以拒绝...</div>
-                        <div class="search-the-body-block">av 99999999</div>
-                        <div class="search-the-body-block">遵义会议</div>
-                        <div class="search-the-body-block">毒液2彩弹</div>
-                        <div class="search-the-body-block">降临</div>
-                        <div class="search-the-body-block">异界</div>
-                        <div class="search-the-body-block">沙丘</div>
+                        <div class="search-the-body-block" v-for="item in hostSearch2" :key="item.id">{{item.pretreatment}}</div>
+
                     </div>
                     <div class="search-the-body-footer">
                         <div class="search-the-bo1">
-                          <div class="search-tx1">查看更多</div>
+                            <div class="search-tx1">查看更多</div>
                             <div class="search-icon">
-                                <svg t="1642383420804" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3037" width="14" height="14"><path d="M512.726547 675.318646c-8.063653 0-15.790638-3.245927-21.435195-9.006118L231.175103 400.906809c-11.603269-11.837606-11.410887-30.840402 0.427742-42.442648 11.837606-11.601222 30.841426-11.410887 42.442648 0.427742l238.681054 243.534596L751.407602 358.891903c11.601222-11.839653 30.602995-12.033058 42.442648-0.427742 11.839653 11.603269 12.031011 30.605042 0.427742 42.442648L534.161742 666.312528C528.517185 672.072719 520.791224 675.318646 512.726547 675.318646z" p-id="3038" fill="#cdcdcd"></path></svg>
+                                <svg t="1642383420804" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="3037" width="14" height="14">
+                                    <path d="M512.726547 675.318646c-8.063653 0-15.790638-3.245927-21.435195-9.006118L231.175103 400.906809c-11.603269-11.837606-11.410887-30.840402 0.427742-42.442648 11.837606-11.601222 30.841426-11.410887 42.442648 0.427742l238.681054 243.534596L751.407602 358.891903c11.601222-11.839653 30.602995-12.033058 42.442648-0.427742 11.839653 11.603269 12.031011 30.605042 0.427742 42.442648L534.161742 666.312528C528.517185 672.072719 520.791224 675.318646 512.726547 675.318646z"
+                                          p-id="3038" fill="#cdcdcd"></path>
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -121,51 +119,15 @@
                         <span class="search-the-bold">热搜</span>
                     </div>
                     <div class="search-the-hot">
-                        <div class="hot-search-block">
-                            <div class="hot-1">1</div>
-                            <div class="block-txt">“探店”扫黄现场</div>
-                            <div class="block-re">热</div>
+                        <div class="hot-search-block" v-for="(item,index) in hostSearch" :key="item.Id">
+                            <div class="hot-1">{{index+1}}</div>
+                            <div class="block-txt">{{item.show_name}}</div>
+
+                            <div class="block-rn" v-if="item.variable == 'new'">新</div>
+                            <div class="block-re" v-if="item.variable == 're'">热</div>
+
                         </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">6</div>
-                            <div class="block-txt">用女声在鬼屋扮演</div>
-                            <div class="block-rn">新</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-1">2</div>
-                            <div class="block-txt">LPL春季赛</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">7</div>
-                            <div class="block-txt">孔子有多强</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-1">3</div>
-                            <div class="block-txt">汤加火山喷发</div>
-                            <div class="block-re">热</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">8</div>
-                            <div class="block-txt">每天喝奶茶会发生什么</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">4</div>
-                            <div class="block-txt">把攻打平安县做成游戏</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">9</div>
-                            <div class="block-txt">BPC决赛</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">7</div>
-                            <div class="block-txt">Wolves夺冠</div>
-                            <div class="block-rn">新</div>
-                        </div>
-                        <div class="hot-search-block">
-                            <div class="hot-6">10</div>
-                            <div class="block-txt">方舟新春笑话</div>
-                            <div class="block-rn">新</div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -566,6 +528,9 @@
                 modal3: false,
                 oauthKey: "",
                 interval: [],
+                hostSearch: [],
+                hostSearch2:[],
+                searchForState:"off"
             };
         },
         computed: {
@@ -613,6 +578,9 @@
                 .catch((error) => {
                     console.log(error);
                 });
+
+            this.hotSearch();
+            this.historicalChainPreUps();
         },
         watch: {
             modalTui: function (newValue, oldValue) {
@@ -680,6 +648,7 @@
                             });
                     })
                     .catch((err) => {
+
                         console.log(err);
                     });
             },
@@ -870,18 +839,117 @@
             refView() {
                 this.view = "Noa8On";
                 this.userModel = "off";
+            },
+            hotSearch() {
+                //搜索今日热点词
+                axios.get("https://api.bilibili.com/x/web-interface/search/square?limit=10").then((resp) => {
+                    console.log(resp.data);
+                    var jsonData = resp.data["data"]["trending"]["list"];
+                    var rees1 = new Array();//奇数集合
+                    var rees2 = new Array();//偶数集合
+                    var rees3 = new Array(10);
+                    //前5个，1，2，3，4，5
+                    for (var i = 0; i <jsonData.length - 5; i++) {
+                      var str =  jsonData[i]["icon"];
+                      if(str != null) {
+                          if (str.indexOf("e9e7a2d8497d4063421b685e72680bf1cfb99a0d") !== -1) {
+                              jsonData[i].variable = 're';
+                          }
+                          if (str.indexOf("4d579fb61f9655316582db193118bba3a721eec0") !== -1) {
+                              jsonData[i].variable = 'new';
+                          }
+                          rees1.push(jsonData[i]);
+                      }
+
+                    }
+                    console.log(rees1);
+                    //后5个 6，7，8，9，10
+                    for(var j=5;j<jsonData.length;j++) {
+                        var stre =  jsonData[j]["icon"];
+                        if(stre != null) {
+                            if (stre.indexOf("e9e7a2d8497d4063421b685e72680bf1cfb99a0d") !== -1) {
+                                jsonData[j].variable = 're';
+                            }
+                            if (stre.indexOf("4d579fb61f9655316582db193118bba3a721eec0") !== -1) {
+                                jsonData[j].variable = 'new';
+                            }
+                            rees2.push(jsonData[j]);
+                        }
+                    }
+
+                   //手填
+                    rees3[0] =rees1[0];
+                    rees3[1] = rees2[0];
+                    rees3[2] = rees1[1];
+                    rees3[3] = rees2[1];
+                    rees3[4] = rees1[2];
+                    rees3[5] = rees2[2];
+                    rees3[6] = rees1[3];
+                    rees3[7] = rees2[3];
+                    rees3[8] = rees1[4];
+                    rees3[9] = rees2[4];
+                    console.log(rees3);
+
+                    this.hostSearch = rees3;
+
+                }).catch((err) => {
+                    console.log(err);
+                    this.$Message.error("热搜参数加载异常");
+                });
+            },
+            getFocus() {
+                this.searchForState = 'on';
+                this.hotSearch();
+            },
+            loseFocus() {
+                this.searchForState = 'off';
+            },
+            historicalChainPreUps() {
+                axios.get("/searchHistory.json").then((resp)=> {
+                    var precipitationChains = resp.data["PrecipitationChain"];
+                    console.log("历史链");
+                    console.log(precipitationChains);
+                    for(var i=0;i<precipitationChains.length;i++) {
+                        if(precipitationChains[i]["PrecipitationValue"].length > 5) {
+                            precipitationChains[i]["pretreatment"] =  precipitationChains[i]["PrecipitationValue"].substring(0,5)+'...';
+                        }else {
+                            precipitationChains[i]["pretreatment"] =  precipitationChains[i]["PrecipitationValue"];
+                        }
+                    }
+                    console.log(precipitationChains);
+                    var secondaryPretreatment = new Array();
+                    for(var j=0;j<precipitationChains.length;j++) {
+                        if(j<12) {
+                            secondaryPretreatment.push(precipitationChains[j]);
+                        }
+                    }
+                    console.log(secondaryPretreatment);
+                    this.hostSearch2 = secondaryPretreatment;
+                }).catch((err)=>{
+                    this.$Message.error("历史搜索参数加载异常");
+                    console.log(err);
+                });
             }
+
         },
     };
 </script>
 
 <style>
+    .block-ig {
+        width: 100%;
+        height: 100%;
+        border-radius: 2px;
+        object-fit: cover;
+        object-position: top;
+    }
+
     .search-the-body-block {
         height: 23px;
         background-color: #f6f7f8;
         border: 1px solid #e5e5e5;
         border-radius: 5px;
-        padding:5px;
+        padding: 5px;
         font-size: 10px;
         color: #2d2d2d;
         margin-right: 8px;
@@ -889,7 +957,8 @@
         margin-top: 5px;
         cursor: pointer;
     }
-    .search-the-body-block:hover{
+
+    .search-the-body-block:hover {
         background-color: #f8f6f6;
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
         border-color: rgb(180, 26, 26);
@@ -904,10 +973,12 @@
         justify-content: flex-start;
         flex-wrap: wrap;
     }
+
     .search-icon {
         float: left;
     }
-    .search-tx1{
+
+    .search-tx1 {
         color: #b9bdc1;
         font-size: 12px;
         float: left;
@@ -915,9 +986,10 @@
         box-shadow: none;
         cursor: pointer;
     }
-    .search-the-bo1{
+
+    .search-the-bo1 {
         text-align: center; /*让div内部文字居中*/
-    /* background-color: #fff; */
+        /* background-color: #fff; */
         border-radius: 20px;
         width: 130px;
         /*height: 130px;*/
@@ -929,12 +1001,14 @@
         bottom: 0;
         padding-top: 12px;
     }
+
     .search-tx1:hover {
         background-color: #eaeaea;
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
         border-color: rgb(180, 26, 26);
         transition: all 0.2s ease-in-out;
     }
+
     .search-the-body-footer {
         width: 100%;
         height: 30px;
@@ -948,6 +1022,18 @@
         height: 80px;
         position: absolute;
         left: 0;
+    }
+
+    .block-rc {
+        width: 15px;
+        height: 65%;
+        /*background-color: #fb759c;*/
+        /*color: #fff;*/
+        font-size: 9.5px;
+        float: left;
+        text-align: center;
+        border-radius: 2px;
+        margin-top: 3px;
     }
 
     .block-rn {
@@ -1068,9 +1154,11 @@
         width: 100%;
         height: 320px;
         background-color: #ffffff;
+        border: 1px solid #e5e5e5;
         border-radius: 4px;
-        top: 42px;
+        top: 40px;
         padding: 8px;
+
     }
 
     .DaoHanCardRightIcon {
