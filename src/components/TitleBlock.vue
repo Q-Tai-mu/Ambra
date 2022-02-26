@@ -81,12 +81,13 @@
                     @focus="getFocus()"
                     placeholder="视频 番剧 UP主..."
                     @keyup.enter="search"
+                    @input="lianChange()"
                     v-model="searchValue"
 
             />
-
-            <div class="fanJuChainsearch"  v-if="searchForState == 'on'">
-                <div class="fanJu-search-history-header">
+<!-- -->
+            <div class="fanJuChainsearch" v-if="searchForState == 'on'"  >
+                <div class="fanJu-search-history-header" v-if="doubleYellow == 'off'">
                     <div class="search-the-left">
                         <span class="search-the-bold">搜索历史</span>
                     </div>
@@ -96,7 +97,7 @@
                           </span>
                     </div>
                 </div>
-                <div class="search-the-body">
+                <div class="search-the-body" v-if="doubleYellow == 'off'">
                     <div class="search-the-body-eh">
                         <div class="search-the-body-block" v-for="item in hostSearch2" :key="item.id">{{item.pretreatment}}</div>
 
@@ -114,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fanJu-search-history-footer">
+                <div class="fanJu-search-history-footer" v-if="doubleYellow == 'off'">
                     <div class="search-the-left-e">
                         <span class="search-the-bold">热搜</span>
                     </div>
@@ -128,6 +129,16 @@
 
                         </div>
 
+                    </div>
+                </div>
+                <div class="timely-body" v-if="doubleYellow == 'on'">
+                    <div v-if="queryIf=='on'">
+                        <div  class="timely-search-results" v-for="item in queryResult" :key="item.id">
+                            <span v-html="item.name"></span>
+                        </div>
+                    </div>
+                    <div class="div-search-center" v-if="queryIf=='off'">
+                        暂无结果
                     </div>
                 </div>
             </div>
@@ -530,7 +541,11 @@
                 interval: [],
                 hostSearch: [],
                 hostSearch2:[],
-                searchForState:"off"
+                searchForState:"off",
+                doubleYellow:"off",
+                queryResult:[],
+                queryIf:"off",
+                timeout:""
             };
         },
         computed: {
@@ -903,6 +918,7 @@
             },
             loseFocus() {
                 this.searchForState = 'off';
+
             },
             historicalChainPreUps() {
                 axios.get("/searchHistory.json").then((resp)=> {
@@ -929,6 +945,31 @@
                     this.$Message.error("历史搜索参数加载异常");
                     console.log(err);
                 });
+            },
+            lianZha() {
+                if(this.searchValue) {
+                    this.doubleYellow = 'on';
+                    axios.get("https://s.search.bilibili.com/main/suggest?func=suggest&suggest_type=accurate&sub_type=tag&main_ver=v1&highlight=&userid=0&term="+this.searchValue).then((resp)=> {
+                       if(resp.data["result"]["tag"]) {
+                           this.queryResult = resp.data["result"]["tag"];
+                           this.queryIf = 'on';
+                       }else {
+                           this.queryIf = 'off';
+                       }
+                    }).catch((err)=> {
+                        console.log(err);
+                    });
+                }else {
+                    this.queryResult.length = 0;
+                    this.doubleYellow = 'off';
+                }
+
+            },
+            lianChange() {
+                if(this.timeout){
+                    clearTimeout(this.timeout)
+                }
+                this.timeout = setTimeout(this.lianZha, 500);
             }
 
         },
@@ -936,6 +977,41 @@
 </script>
 
 <style>
+    .div-search-center {
+        text-align: center; /*让div内部文字居中*/
+        /* background-color: #fff; */
+        border-radius: 20px;
+        width: 130px;
+        height: 130px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .suggest_high_light {
+        color: #f25d8e;
+        font-style: normal;
+    }
+    .timely-body {
+        width: 100%;
+        height: 100%;
+    }
+    .timely-search-results {
+        width: 100%;
+        height: 30px;
+        font-size: 12px;
+        padding-top: 6px;
+        padding-left: 5px;
+    }
+    .timely-search-results:hover {
+        background-color: #f8f6f6;
+        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+        border-color: rgb(180, 26, 26);
+        /*color: #5cc9f0;*/
+        transition: all 0.2s ease-in-out;
+    }
     .block-ig {
         width: 100%;
         height: 100%;

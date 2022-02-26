@@ -144,6 +144,9 @@
         border-block-color: #fff;
         background-color: #f3f3f3;
         border-radius: 5px;
-        /*background:url(".././assets/background/2054061.jpg");*/
+        object-fit: cover;
+        object-position: top;
+        /*background:url(".././assets/background/2054062.jpg")no-repeat;*/
+        background-size:100%100%;
     }
 </style>
