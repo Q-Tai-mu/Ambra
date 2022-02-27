@@ -1094,7 +1094,7 @@
 </template>
 
 <script>
-    // import axios from "axios";
+    import axios from "axios";
     import {mapMutations} from "vuex";
     // import qs from "qs";
     // var QRCode = require("qrcode");
@@ -1105,7 +1105,7 @@
                 userName: "未登录",
                 userIst: "off",
                 userImg: "",
-                modal2: true,
+                modal2: false,
                 modal3: false,
                 uid: "",
                 textPross: "No9On",
@@ -1140,7 +1140,9 @@
                 },
             },
         },
-
+        created() {
+            this.checkVersion();
+        },
         methods: {
             ...mapMutations(["SET_MODALTUI", "SET_VIEW", "SET_OVERALLBACKHROUNDCOLOR"]),
             setclick(val) {
@@ -1153,6 +1155,21 @@
                 this.modalTui = false;
                 // clearInterval(this.interval);
             },
+            checkVersion() {
+                axios.get("https://raw.githubusercontent.com/Q-Tai-mu/Ambra/main/public/checkVersion.json").then((resp) => {
+                    var version1 = resp.data["version"];
+                    axios.get("/localVersion.json").then((resp) => {
+                        var version2 = resp.data["version"];
+                        if (version2 < version1) {
+                            this.modal2 = true;
+                        }
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
         },
     };
 </script>
