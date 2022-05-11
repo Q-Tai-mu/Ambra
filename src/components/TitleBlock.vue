@@ -85,8 +85,8 @@
                     v-model="searchValue"
 
             />
-<!-- -->
-            <div class="fanJuChainsearch" v-if="searchForState == 'on'"  >
+            <!-- -->
+            <div class="fanJuChainsearch" v-if="searchForState == 'on'">
                 <div class="fanJu-search-history-header" v-if="doubleYellow == 'off'">
                     <div class="search-the-left">
                         <span class="search-the-bold">搜索历史</span>
@@ -99,7 +99,9 @@
                 </div>
                 <div class="search-the-body" v-if="doubleYellow == 'off'">
                     <div class="search-the-body-eh">
-                        <div class="search-the-body-block" v-for="item in hostSearch2" :key="item.id">{{item.pretreatment}}</div>
+                        <div class="search-the-body-block" v-for="item in hostSearch2" :key="item.id">
+                            {{item.pretreatment}}
+                        </div>
 
                     </div>
                     <div class="search-the-body-footer">
@@ -133,7 +135,7 @@
                 </div>
                 <div class="timely-body" v-if="doubleYellow == 'on'">
                     <div v-if="queryIf=='on'">
-                        <div  class="timely-search-results" v-for="item in queryResult" :key="item.id">
+                        <div class="timely-search-results" v-for="item in queryResult" :key="item.id">
                             <span v-html="item.name"></span>
                         </div>
                     </div>
@@ -481,7 +483,7 @@
                     <div class="user-Live-info"></div>
                 </div>
                 <div class="user-info-Options">
-                    <div class="user-info-card">
+                    <div class="user-info-card" @click="cancellation()">
                         <div class="DaoHanCardLeftProssNo"></div>
                         <div class="DaoHanCardIcon">
                             <svg
@@ -525,12 +527,12 @@
         data() {
             return {
                 userModel: "off",
-                bo3: "9",
-                bo2: "2",
-                bo1: "181",
-                userLevel: "5",
-                userVip: "年度大会员",
-                userName: "盛为梦",
+                bo3: "",
+                bo2: "",
+                bo1: "",
+                userLevel: "",
+                userVip: "",
+                userName: "",
                 userIst: "off",
                 userImg: "",
                 searchValue: "",
@@ -540,12 +542,12 @@
                 oauthKey: "",
                 interval: [],
                 hostSearch: [],
-                hostSearch2:[],
-                searchForState:"off",
-                doubleYellow:"off",
-                queryResult:[],
-                queryIf:"off",
-                timeout:""
+                hostSearch2: [],
+                searchForState: "off",
+                doubleYellow: "off",
+                queryResult: [],
+                queryIf: "off",
+                timeout: ""
             };
         },
         computed: {
@@ -623,7 +625,9 @@
             uid(newValue, oldValue) {
                 console.log(oldValue);
                 console.log(newValue);
-                this.loginInfo();
+                if(newValue) {
+                    this.loginInfo();
+                }
             },
         },
         methods: {
@@ -864,24 +868,24 @@
                     var rees2 = new Array();//偶数集合
                     var rees3 = new Array(10);
                     //前5个，1，2，3，4，5
-                    for (var i = 0; i <jsonData.length - 5; i++) {
-                      var str =  jsonData[i]["icon"];
-                      if(str != null) {
-                          if (str.indexOf("e9e7a2d8497d4063421b685e72680bf1cfb99a0d") !== -1) {
-                              jsonData[i].variable = 're';
-                          }
-                          if (str.indexOf("4d579fb61f9655316582db193118bba3a721eec0") !== -1) {
-                              jsonData[i].variable = 'new';
-                          }
-                          rees1.push(jsonData[i]);
-                      }
+                    for (var i = 0; i < jsonData.length - 5; i++) {
+                        var str = jsonData[i]["icon"];
+                        if (str != null) {
+                            if (str.indexOf("e9e7a2d8497d4063421b685e72680bf1cfb99a0d") !== -1) {
+                                jsonData[i].variable = 're';
+                            }
+                            if (str.indexOf("4d579fb61f9655316582db193118bba3a721eec0") !== -1) {
+                                jsonData[i].variable = 'new';
+                            }
+                            rees1.push(jsonData[i]);
+                        }
 
                     }
                     console.log(rees1);
                     //后5个 6，7，8，9，10
-                    for(var j=5;j<jsonData.length;j++) {
-                        var stre =  jsonData[j]["icon"];
-                        if(stre != null) {
+                    for (var j = 5; j < jsonData.length; j++) {
+                        var stre = jsonData[j]["icon"];
+                        if (stre != null) {
                             if (stre.indexOf("e9e7a2d8497d4063421b685e72680bf1cfb99a0d") !== -1) {
                                 jsonData[j].variable = 're';
                             }
@@ -892,8 +896,8 @@
                         }
                     }
 
-                   //手填
-                    rees3[0] =rees1[0];
+                    //手填
+                    rees3[0] = rees1[0];
                     rees3[1] = rees2[0];
                     rees3[2] = rees1[1];
                     rees3[3] = rees2[1];
@@ -921,55 +925,94 @@
 
             },
             historicalChainPreUps() {
-                axios.get("/searchHistory.json").then((resp)=> {
+                axios.get("/searchHistory.json").then((resp) => {
                     var precipitationChains = resp.data["PrecipitationChain"];
                     console.log("历史链");
                     console.log(precipitationChains);
-                    for(var i=0;i<precipitationChains.length;i++) {
-                        if(precipitationChains[i]["PrecipitationValue"].length > 5) {
-                            precipitationChains[i]["pretreatment"] =  precipitationChains[i]["PrecipitationValue"].substring(0,5)+'...';
-                        }else {
-                            precipitationChains[i]["pretreatment"] =  precipitationChains[i]["PrecipitationValue"];
+                    for (var i = 0; i < precipitationChains.length; i++) {
+                        if (precipitationChains[i]["PrecipitationValue"].length > 5) {
+                            precipitationChains[i]["pretreatment"] = precipitationChains[i]["PrecipitationValue"].substring(0, 5) + '...';
+                        } else {
+                            precipitationChains[i]["pretreatment"] = precipitationChains[i]["PrecipitationValue"];
                         }
                     }
                     console.log(precipitationChains);
                     var secondaryPretreatment = new Array();
-                    for(var j=0;j<precipitationChains.length;j++) {
-                        if(j<12) {
+                    for (var j = 0; j < precipitationChains.length; j++) {
+                        if (j < 12) {
                             secondaryPretreatment.push(precipitationChains[j]);
                         }
                     }
                     console.log(secondaryPretreatment);
                     this.hostSearch2 = secondaryPretreatment;
-                }).catch((err)=>{
+                }).catch((err) => {
                     this.$Message.error("历史搜索参数加载异常");
                     console.log(err);
                 });
             },
             lianZha() {
-                if(this.searchValue) {
+                if (this.searchValue) {
                     this.doubleYellow = 'on';
-                    axios.get("https://s.search.bilibili.com/main/suggest?func=suggest&suggest_type=accurate&sub_type=tag&main_ver=v1&highlight=&userid=0&term="+this.searchValue).then((resp)=> {
-                       if(resp.data["result"]["tag"]) {
-                           this.queryResult = resp.data["result"]["tag"];
-                           this.queryIf = 'on';
-                       }else {
-                           this.queryIf = 'off';
-                       }
-                    }).catch((err)=> {
+                    axios.get("https://s.search.bilibili.com/main/suggest?func=suggest&suggest_type=accurate&sub_type=tag&main_ver=v1&highlight=&userid=0&term=" + this.searchValue).then((resp) => {
+                        if (resp.data["result"]["tag"]) {
+                            this.queryResult = resp.data["result"]["tag"];
+                            this.queryIf = 'on';
+                        } else {
+                            this.queryIf = 'off';
+                        }
+                    }).catch((err) => {
                         console.log(err);
                     });
-                }else {
+                } else {
                     this.queryResult.length = 0;
                     this.doubleYellow = 'off';
                 }
 
             },
             lianChange() {
-                if(this.timeout){
+                if (this.timeout) {
                     clearTimeout(this.timeout)
                 }
                 this.timeout = setTimeout(this.lianZha, 500);
+            },
+            cancellation() {
+                //查询CSRF Token（位于 cookie）
+                console.log('退出');
+                const BiliCSRF = "bili_jct";
+                const domain = ".bilibili.com";
+                session.defaultSession.cookies
+                    .get({name: BiliCSRF, domain})
+                    .then((cookies) => {
+                        //发送 注销请求
+                        if(cookies[0].value) {
+                            var params = {biliCSRF: cookies[0].value};
+                            axios({
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/x-www-form-urlencoded",
+                                },
+                                data: qs.stringify(params),
+                                url: "http://passport.bilibili.com/login/exit/v2",
+                            }).then((resp) => {
+                                console.log("注销完成");
+                                console.log(resp.data);
+                                const BiliCSRF = 'bili_jct';
+                                const url = '/';
+                                session.defaultSession.cookies.remove(url, BiliCSRF);
+                                this.userIst = 'off';
+                                this.userModel = 'off';
+                                this.uid = '';
+                            }).catch((err) => {
+                                console.log(err);
+                            });
+                        }
+
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
             }
 
         },
@@ -990,14 +1033,17 @@
         right: 0;
         bottom: 0;
     }
+
     .suggest_high_light {
         color: #f25d8e;
         font-style: normal;
     }
+
     .timely-body {
         width: 100%;
         height: 100%;
     }
+
     .timely-search-results {
         width: 100%;
         height: 30px;
@@ -1005,6 +1051,7 @@
         padding-top: 6px;
         padding-left: 5px;
     }
+
     .timely-search-results:hover {
         background-color: #f8f6f6;
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
@@ -1012,6 +1059,7 @@
         /*color: #5cc9f0;*/
         transition: all 0.2s ease-in-out;
     }
+
     .block-ig {
         width: 100%;
         height: 100%;
@@ -1211,7 +1259,7 @@
         float: right;
     }
 
-    search-the-left-e. {
+    .search-the-left-e {
         float: left;
     }
 

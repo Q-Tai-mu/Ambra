@@ -11,17 +11,18 @@ module.exports = {
         electronBuilder: {
             nodeIntegration: true,
             builderOptions: {
-                productName:"哔哩-工程版",
-                copyright:"Copyright @ 2022 Mario-er",
+                productName: "安伯拉",
+                copyright: "Copyright @ 2022 Mario-er",
                 // options placed here will be merged with default configuration and passed to electron-builder
                 win: {
                     icon: 'build/icons/icon.ico'
-                  },
-                  nsis: {
+                },
+                nsis: {
                     oneClick: false,
                     allowToChangeInstallationDirectory: true
-                  },
+                },
+                asar:false
             }
         }
-    },
+    }
 }
